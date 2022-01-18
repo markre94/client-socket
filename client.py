@@ -10,7 +10,7 @@ host = '127.0.0.1'
 port = 50001
 
 BUFFER = 1024
-HEADER = 8
+SEPARATOR = "<SEPARATOR>"
 
 args = sys.argv[1:]
 
@@ -24,7 +24,7 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((host, port))
 
 cprint(f"Sending file name {file_name} to the server", "green")
-client_socket.send(f"{file_name}".encode())
+client_socket.send(f"{file_name}{SEPARATOR}".encode())
 
 with open(file_name, "rb") as f:
     while True:

@@ -7,6 +7,8 @@ from termcolor import cprint
 host = '127.0.0.1'
 port = 50001
 BUFFER = 1024
+SEPARATOR = "<SEPARATOR>"
+
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((host, port))
@@ -20,9 +22,10 @@ file_name = ""
 while True:
     data = client_socket.recv(1).decode("utf-8")
     file_name += data
-    if file_name.endswith(".csv"):
+    if file_name.endswith(f"{SEPARATOR}"):
         break
 
+file_name = file_name.replace(f'{SEPARATOR}', '')
 cprint(f"File name {file_name} received.", "green")
 
 with open(f"server/{file_name}", "wb") as f:
